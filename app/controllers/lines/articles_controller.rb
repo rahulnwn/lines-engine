@@ -20,7 +20,7 @@ module Lines
           if params[:tag]
             @articles = Article.published.tagged_with(params[:tag]).page(params[:page].to_i)
           else
-            @articles = Article.published.page(params[:page].to_i).padding(1)
+            @articles = Article.published.page(params[:page].to_i)
           end
           
           if @articles.first_page?
