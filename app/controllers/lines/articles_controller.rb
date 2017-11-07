@@ -60,7 +60,7 @@ module Lines
       set_meta_tags title: @article.title,
                     keywords: KEYWORDS + @article.tag_list.to_s,
                     open_graph: meta_tags
-      if request.path != article_path(@article)
+      if request.path != article_path(@article) && request.path != direct_article_path(@article)
         return redirect_to @article, status: :moved_permanently
       end
 
