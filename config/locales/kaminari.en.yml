@@ -3,6 +3,6 @@ en:
     pagination:
       first: "&laquo; Newest"
       last: "Oldest &raquo;"
-      previous: "&lsaquo; Newer"
-      next: "Older &rsaquo;"
+      previous: "Previous"
+      next: "Next"
       truncate: "&hellip;"
