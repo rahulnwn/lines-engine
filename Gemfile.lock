@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    lines-engine (1.2.3)
+    lines-engine (1.2.5)
       acts-as-taggable-on (~> 6.0.0)
       bcrypt (~> 3.1.0)
       bcrypt-ruby (~> 3.1.0)
