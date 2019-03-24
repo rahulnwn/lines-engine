@@ -2,6 +2,12 @@ module Lines
   class Engine < ::Rails::Engine
     isolate_namespace Lines
 
+    config.to_prepare do
+      Dir.glob(Rails.root + "app/decorators/**/*_decorator*.rb").each do |c|
+        require_dependency(c)
+      end
+    end
+
     config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     require 'kaminari'
@@ -21,7 +27,9 @@ module Lines
 
     # Initializer to combine this engines static assets with the static assets of the hosting site.
     initializer "static assets" do |app|
-      app.middleware.insert_after(::Rack::Runtime, ::ActionDispatch::Static, "#{root}/public")
+      if Rails.application.config.public_file_server.enabled
+        app.middleware.insert_after(::Rack::Runtime, ::ActionDispatch::Static, "#{root}/public")
+      end
     end
 
     initializer "lines.assets.precompile" do |app|
@@ -31,6 +39,7 @@ module Lines
     initializer 'lines.action_controller' do |app|
       ActiveSupport.on_load :action_controller_base do
         helper Lines::ApplicationHelper
+        helper ::ApplicationHelper
       end
     end
 

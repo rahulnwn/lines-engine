@@ -20,7 +20,7 @@ module Lines
           if params[:tag]
             @articles = Lines::Article.published.tagged_with(params[:tag]).page(params[:page].to_i)
           else
-            @articles = Lines::Article.published.page(params[:page].to_i).padding(1)
+            @articles = Lines::Article.published.page(params[:page].to_i)
           end
           
           if @articles.first_page?
@@ -56,11 +56,11 @@ module Lines
         url: url_for(@article),
         site_name: SITE_TITLE,
       }
-      meta_tags[:image] = CONFIG[:host] + @article.image_url if @article.image_url.present?
+      meta_tags[:image] = @article.image_url if @article.image_url.present?
       set_meta_tags title: @article.title,
                     keywords: KEYWORDS + @article.tag_list.to_s,
                     open_graph: meta_tags
-      if request.path != article_path(@article)
+      if request.path != article_path(@article) && request.path != direct_article_path(@article)
         return redirect_to @article, status: :moved_permanently
       end
 

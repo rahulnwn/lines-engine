@@ -19,6 +19,8 @@ Lines::Engine.routes.draw do
     get 'page/:page', action: :index, on: :collection
   end
 
+  get '/:id', to: 'articles#show', as: :direct_article
+
   # Admin namespace
   namespace :admin do
     resources :articles do

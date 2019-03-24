@@ -1,5 +1,5 @@
 module Lines
-  class ApplicationController < ActionController::Base
+  class ApplicationController < ::ApplicationController
 
     private
 
