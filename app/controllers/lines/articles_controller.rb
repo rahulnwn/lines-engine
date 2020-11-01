@@ -22,13 +22,13 @@ module Lines
           else
             @articles = Lines::Article.published.page(params[:page].to_i)
           end
-          
+
           if @articles.first_page?
             if @first_article = Article.published.first
               @first_article.teaser = nil unless @first_article.teaser.present?
             end
           end
-          
+
           set_meta_tags title: SITE_TITLE,
                         description: CONFIG[:meta_description],
                         keywords: KEYWORDS,
@@ -42,6 +42,9 @@ module Lines
         }
         format.atom{
           @articles = Lines::Article.published
+        }
+        format.js {
+          @articles = Lines::Article.published.page(params[:page].to_i)
         }
       end
     end
